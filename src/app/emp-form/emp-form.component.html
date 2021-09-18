@@ -1,0 +1,84 @@
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+
+    <div class="container">
+        <h2></h2><br/>
+        <form class="form-horizontal" #userForm="ngForm" (ngSubmit)="onSubmit()"  novalidate >
+        
+           <div class="form-group">
+              <label class="control-label col-sm-2" >Name:</label>
+              <div class="col-sm-10">
+                <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid && name.touched"  class="form-control  " [(ngModel)]="userModel.name" name="userName" #userName="ngModel"  >
+                <div  *ngIf='userName.errors?.required'> Name is required</div>
+                <!-- <small   >Name is required</small> -->
+
+                <!-- {{name.valid}}
+                {{name.touched}} -->
+              </div>
+            </div>
+     
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email:</label>
+            <div class="col-sm-10">
+              <input type="email" required  #email="ngModel"pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [class.is-valid]="email.invalid && email.touched"   class="form-control"[(ngModel)]="userModel.email"  id="email" placeholder="Enter Email" name="email">
+              <div  *ngIf='email.errors?.pattern'> Invalid Email</div>
+            
+            </div>
+          </div>
+          
+          <div class="form-group">
+           <label class="control-label col-sm-2" for="phone">Phone Number:</label>
+           <div class="col-sm-10">
+             <input type="tel" required  #phone="ngModel" pattern="\d{10}$" [class.is-invalid]="phone.invalid && phone.touched"    class="form-control" [(ngModel)]="userModel.phone"  id="phone" placeholder="Enter Phone Number" name="phone">
+            <small [class.d-none]="phone.valid || phone.untouched">Number is required</small>
+            <!-- <div  *ngIf='phone.errors?.pattern'> Invalid Phone Numberl</div>
+              -->
+           
+            </div>
+         </div>
+     
+         <div class="form-group">
+           <label class="control-label col-sm-2" for="name">Address:</label>
+           <div class="col-sm-10">
+             <input type="text" required class="form-control" [(ngModel)]="userModel.address"  id="address" placeholder="Enter Address" name="address">
+           </div>
+         </div>
+     
+         <div class="form-group">
+           <label class="control-label col-sm-2" for="pincode">Pin Code:</label>
+           <div class="col-sm-10">
+             <input type="text"  required class="form-control" maxlength="6"  (keyup)="validatePinCode()" pattern="\d{6}$"   [(ngModel)]="userModel.pincode"  name="pincode">
+           <div *ngFor='let code of code' >{{this.code[0].Status}}</div> 
+          
+          <!-- <small *ngFor='let code of code' > Division: {{this.code[0].PostOffice[1].Division}} ,
+             District: {{this.code[0].PostOffice[1].District}}, State:- {{this.code[0].PostOffice[1].State}},Country:- {{this.code[0].PostOffice[1].Country}}
+          </small>  -->
+            <!-- <div *ngFor='let code of code' >{{}}</div>  -->
+            <!-- <div *ngFor='let code of code' ></div> 
+            <div *ngFor='let code of code' ></div>  -->
+             <!-- <div *ngFor='let pin of tableData' >{{pin.pincode}}</div> -->
+           </div>
+         </div>
+          
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" [disabled]="userForm.form.invalid" class="btn btn-success">Submit</button>
+            </div>
+          </div>
+        </form>
+<!--       
+        <table>
+          <tr>
+               
+                <th>postalCode,</th>
+                
+          </tr>
+          <tr *ngFor="let pin of lstpincode" >
+            
+            <td>{{pin.pincode}}</td>
+            
+          </tr>
+        </table> -->
+      
+        <app-new-table [userData]="users" ></app-new-table>
+      </div>
+   
